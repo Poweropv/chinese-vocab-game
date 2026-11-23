@@ -149,11 +149,29 @@
     /* Category Pills */
     .toolbar {
       display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+      background: var(--surface);
+      padding: var(--space-4);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .toolbar-row-1 {
+      display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: var(--space-4);
-      margin-bottom: var(--space-6);
+      gap: var(--space-3);
+    }
+
+    .toolbar-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
     }
 
     .cat-list {
@@ -164,13 +182,13 @@
 
     .cat-btn {
       font: inherit;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      padding: 8px 16px;
+      padding: 6px 14px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--ink);
+      background: var(--surface-subtle);
+      color: var(--muted);
       cursor: pointer;
       transition: all 0.15s ease;
     }
@@ -249,8 +267,8 @@
       position: absolute;
       top: 12px;
       left: 12px;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       padding: 2px 8px;
       border-radius: 6px;
       background: var(--surface-subtle);
@@ -279,11 +297,12 @@
     }
 
     .color-swatch {
-      width: 28px;
-      height: 28px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      border: 2px solid rgba(0, 0, 0, 0.12);
+      border: 2px solid rgba(0, 0, 0, 0.15);
       margin-bottom: var(--space-2);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
     }
 
     .hanzi {
@@ -485,7 +504,7 @@
     }
 
     .choice-main {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--ink);
       display: flex;
@@ -571,7 +590,7 @@
         <div class="brand-mark" aria-hidden="true">中文</div>
         <div>
           <h1 class="brand-title">ฝึกภาษาจีนพื้นฐานในชีวิตประจำวัน</h1>
-          <p class="brand-subtitle">ท่องจำคำศัพท์และเกมฟังเสียงเลือกคำตอบ</p>
+          <p class="brand-subtitle">ท่องจำคำศัพท์และเกมฟังเสียงเลือกคำตอบ (อัปเดตคำศัพท์ชุดใหญ่)</p>
         </div>
       </div>
 
@@ -589,12 +608,14 @@
   <main class="container">
     <!-- Category & Pinyin Controls -->
     <div class="toolbar">
+      <div class="toolbar-row-1">
+        <h2 class="toolbar-title">เลือกหมวดหมู่คำศัพท์:</h2>
+        <label class="toggle-label" id="pinyin-toggle-wrap">
+          <input type="checkbox" id="toggle-pinyin" checked>
+          <span>แสดงพินอินและคำอ่านไทย</span>
+        </label>
+      </div>
       <div class="cat-list" id="category-list" role="group" aria-label="หมวดหมู่คำศัพท์"></div>
-
-      <label class="toggle-label" id="pinyin-toggle-wrap">
-        <input type="checkbox" id="toggle-pinyin" checked>
-        <span>แสดงพินอินและคำอ่านไทย</span>
-      </label>
     </div>
 
     <!-- VIEW 1: Vocabulary Study -->
@@ -650,48 +671,89 @@
     const CATEGORIES = [
       { id: 'all', name: 'ทั้งหมด' },
       { id: 'numbers', name: 'การนับเลข (1–10)' },
-      { id: 'colors', name: 'สี (Colors)' },
-      { id: 'calendar', name: 'วัน เดือน ปี' },
-      { id: 'daily', name: 'สื่อสารชีวิตประจำวัน' }
+      { id: 'numbers_large', name: 'เลขหลักสิบ-หลักหมื่น' },
+      { id: 'colors', name: 'สี (12 สี)' },
+      { id: 'calendar_days', name: 'วันในสัปดาห์' },
+      { id: 'calendar_months', name: 'เดือนทั้ง 12' },
+      { id: 'food', name: 'สั่งอาหารพื้นฐาน' }
     ];
 
     const VOCAB_DATA = [
       // การนับเลข 1-10
-      { id: 'n1', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '一', pinyin: 'yī', thaiPron: 'อี', meaning: '1 (หนึ่ง)', badge: '1' },
-      { id: 'n2', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '二', pinyin: 'èr', thaiPron: 'เอ้อร์', meaning: '2 (สอง)', badge: '2' },
-      { id: 'n3', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '三', pinyin: 'sān', thaiPron: 'ซาน', meaning: '3 (สาม)', badge: '3' },
-      { id: 'n4', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '四', pinyin: 'sì', thaiPron: 'ซื่อ', meaning: '4 (สี่)', badge: '4' },
-      { id: 'n5', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '五', pinyin: 'wǔ', thaiPron: 'อู่', meaning: '5 (ห้า)', badge: '5' },
-      { id: 'n6', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '六', pinyin: 'liù', thaiPron: 'ลิ่ว', meaning: '6 (หก)', badge: '6' },
-      { id: 'n7', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '七', pinyin: 'qī', thaiPron: 'ชี', meaning: '7 (เจ็ด)', badge: '7' },
-      { id: 'n8', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '八', pinyin: 'bā', thaiPron: 'ปา', meaning: '8 (แปด)', badge: '8' },
-      { id: 'n9', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '九', pinyin: 'jiǔ', thaiPron: 'จิ่ว', meaning: '9 (เก้า)', badge: '9' },
-      { id: 'n10', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '十', pinyin: 'shí', thaiPron: 'สือ', meaning: '10 (สิบ)', badge: '10' },
+      { id: 'n1', category: 'numbers', categoryLabel: 'ตัวเลข 1-10', hanzi: '一', pinyin: 'yī', thaiPron: 'อี', meaning: '1 (หนึ่ง)', badge: '1' },
+      { id: 'n2', category: 'numbers', categoryLabel: 'ตัวเลข 1-10', hanzi: '二', pinyin: 'èr', thaiPron: 'เอ้อร์', meaning: '2 (สอง)', badge: '2' },
+      { id: 'n3', category: 'numbers', categoryLabel: 'ตัวเลข 1-10', hanzi: '三', pinyin: 'sān', thaiPron: 'ซาน', meaning: '3 (สาม)', badge: '3' },
+      { id: 'n4', category: 'numbers', categoryLabel: 'ตัวเลข 1-10', hanzi: '四', pinyin: 'sì', thaiPron: 'ซื่อ', meaning: '4 (สี่)', badge: '4' },
+      { id: 'n5', category: 'numbers', categoryLabel: 'ตัวเลข 1-10', hanzi: '五', pinyin: 'wǔ', thaiPron: 'อู่', meaning: '5 (ห้า)', badge: '5' },
+      { id: 'n6', category: 'numbers', categoryLabel: 'ตัวเลข 1-10', hanzi: '六', pinyin: 'liù', thaiPron: 'ลิ่ว', meaning: '6 (หก)', badge: '6' },
+      { id: 'n7', category: 'numbers', categoryLabel: 'ตัวเลข 1-10', hanzi: '七', pinyin: 'qī', thaiPron: 'ชี', meaning: '7 (เจ็ด)', badge: '7' },
+      { id: 'n8', category: 'numbers', categoryLabel: 'ตัวเลข 1-10', hanzi: '八', pinyin: 'bā', thaiPron: 'ปา', meaning: '8 (แปด)', badge: '8' },
+      { id: 'n9', category: 'numbers', categoryLabel: 'ตัวเลข 1-10', hanzi: '九', pinyin: 'jiǔ', thaiPron: 'จิ่ว', meaning: '9 (เก้า)', badge: '9' },
+      { id: 'n10', category: 'numbers', categoryLabel: 'ตัวเลข 1-10', hanzi: '十', pinyin: 'shí', thaiPron: 'สือ', meaning: '10 (สิบ)', badge: '10' },
 
-      // สี
+      // เลขหลักสิบ-หลักหมื่น
+      { id: 'nl1', category: 'numbers_large', categoryLabel: 'เลขหลายหลัก', hanzi: '十一', pinyin: 'shíyī', thaiPron: 'สืออี', meaning: '11 (สิบเอ็ด)' },
+      { id: 'nl2', category: 'numbers_large', categoryLabel: 'เลขหลายหลัก', hanzi: '二十', pinyin: 'èrshí', thaiPron: 'เอ้อร์สือ', meaning: '20 (ยี่สิบ)' },
+      { id: 'nl3', category: 'numbers_large', categoryLabel: 'เลขหลายหลัก', hanzi: '三十', pinyin: 'sānshí', thaiPron: 'ซานสือ', meaning: '30 (สามสิบ)' },
+      { id: 'nl4', category: 'numbers_large', categoryLabel: 'เลขหลายหลัก', hanzi: '五十', pinyin: 'wǔshí', thaiPron: 'อู่สือ', meaning: '50 (ห้าสิบ)' },
+      { id: 'nl5', category: 'numbers_large', categoryLabel: 'เลขหลายหลัก', hanzi: '九十九', pinyin: 'jiǔshíjiǔ', thaiPron: 'จิ่วสือจิ่ว', meaning: '99 (เก้าสิบเก้า)' },
+      { id: 'nl6', category: 'numbers_large', categoryLabel: 'เลขหลายหลัก', hanzi: '一百', pinyin: 'yībǎi', thaiPron: 'อีป่าย', meaning: '100 (หนึ่งร้อย)' },
+      { id: 'nl7', category: 'numbers_large', categoryLabel: 'เลขหลายหลัก', hanzi: '一千', pinyin: 'yīqiān', thaiPron: 'อีเซียน', meaning: '1,000 (หนึ่งพัน)' },
+      { id: 'nl8', category: 'numbers_large', categoryLabel: 'เลขหลายหลัก', hanzi: '一万', pinyin: 'yīwàn', thaiPron: 'อีเวิ่น', meaning: '10,000 (หนึ่งหมื่น)' },
+
+      // สี (12 สี)
       { id: 'c1', category: 'colors', categoryLabel: 'สี', hanzi: '红色', pinyin: 'hóngsè', thaiPron: 'หงเซ่อ', meaning: 'สีแดง', colorHex: '#dc2626' },
       { id: 'c2', category: 'colors', categoryLabel: 'สี', hanzi: '黄色', pinyin: 'huángsè', thaiPron: 'หวงเซ่อ', meaning: 'สีเหลือง', colorHex: '#eab308' },
       { id: 'c3', category: 'colors', categoryLabel: 'สี', hanzi: '蓝色', pinyin: 'lánsè', thaiPron: 'หลานเซ่อ', meaning: 'สีน้ำเงิน / สีฟ้า', colorHex: '#2563eb' },
       { id: 'c4', category: 'colors', categoryLabel: 'สี', hanzi: '绿色', pinyin: 'lǜsè', thaiPron: 'ลวี่เซ่อ', meaning: 'สีเขียว', colorHex: '#16a34a' },
       { id: 'c5', category: 'colors', categoryLabel: 'สี', hanzi: '白色', pinyin: 'báisè', thaiPron: 'ไป๋เซ่อ', meaning: 'สีขาว', colorHex: '#ffffff' },
       { id: 'c6', category: 'colors', categoryLabel: 'สี', hanzi: '黑色', pinyin: 'hēisè', thaiPron: 'เฮยเซ่อ', meaning: 'สีดำ', colorHex: '#18181b' },
+      { id: 'c7', category: 'colors', categoryLabel: 'สี', hanzi: '橙色', pinyin: 'chéngsè', thaiPron: 'เฉิงเซ่อ', meaning: 'สีส้ม', colorHex: '#f97316' },
+      { id: 'c8', category: 'colors', categoryLabel: 'สี', hanzi: '粉红色', pinyin: 'fěnhóngsè', thaiPron: 'เฝิ่นหงเซ่อ', meaning: 'สีชมพู', colorHex: '#ec4899' },
+      { id: 'c9', category: 'colors', categoryLabel: 'สี', hanzi: '紫色', pinyin: 'zǐsè', thaiPron: 'จื่อเซ่อ', meaning: 'สีม่วง', colorHex: '#a855f7' },
+      { id: 'c10', category: 'colors', categoryLabel: 'สี', hanzi: '棕色', pinyin: 'zōngsè', thaiPron: 'จงเซ่อ', meaning: 'สีน้ำตาล', colorHex: '#78350f' },
+      { id: 'c11', category: 'colors', categoryLabel: 'สี', hanzi: '灰色', pinyin: 'huīsè', thaiPron: 'ฮุยเซ่อ', meaning: 'สีเทา', colorHex: '#6b7280' },
+      { id: 'c12', category: 'colors', categoryLabel: 'สี', hanzi: '金色', pinyin: 'jīnsè', thaiPron: 'จินเซ่อ', meaning: 'สีทอง', colorHex: '#d4af37' },
 
-      // วัน เดือน ปี
-      { id: 't1', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '今天', pinyin: 'jīntiān', thaiPron: 'จินเทียน', meaning: 'วันนี้' },
-      { id: 't2', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '明天', pinyin: 'míngtiān', thaiPron: 'หมิงเทียน', meaning: 'พรุ่งนี้' },
-      { id: 't3', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '昨天', pinyin: 'zuótiān', thaiPron: 'จั๋วเทียน', meaning: 'เมื่อวานนี้' },
-      { id: 't4', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '星期一', pinyin: 'xīngqīyī', thaiPron: 'ซิงชีอี', meaning: 'วันจันทร์' },
-      { id: 't5', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '星期日', pinyin: 'xīngqīrì', thaiPron: 'ซิงชีรื่อ', meaning: 'วันอาทิตย์' },
-      { id: 't6', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '月', pinyin: 'yuè', thaiPron: 'เยวี่ย', meaning: 'เดือน' },
-      { id: 't7', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '年', pinyin: 'nián', thaiPron: 'เหนียน', meaning: 'ปี' },
+      // วันในสัปดาห์
+      { id: 'w1', category: 'calendar_days', categoryLabel: 'วันในสัปดาห์', hanzi: '星期一', pinyin: 'xīngqīyī', thaiPron: 'ซิงชีอี', meaning: 'วันจันทร์' },
+      { id: 'w2', category: 'calendar_days', categoryLabel: 'วันในสัปดาห์', hanzi: '星期二', pinyin: 'xīngqī\'èr', thaiPron: 'ซิงชีเอ้อร์', meaning: 'วันอังคาร' },
+      { id: 'w3', category: 'calendar_days', categoryLabel: 'วันในสัปดาห์', hanzi: '星期三', pinyin: 'xīngqīsān', thaiPron: 'ซิงชีซาน', meaning: 'วันพุธ' },
+      { id: 'w4', category: 'calendar_days', categoryLabel: 'วันในสัปดาห์', hanzi: '星期四', pinyin: 'xīngqīsì', thaiPron: 'ซิงชีซื่อ', meaning: 'วันพฤหัสบดี' },
+      { id: 'w5', category: 'calendar_days', categoryLabel: 'วันในสัปดาห์', hanzi: '星期五', pinyin: 'xīngqīwǔ', thaiPron: 'ซิงชีอู่', meaning: 'วันศุกร์' },
+      { id: 'w6', category: 'calendar_days', categoryLabel: 'วันในสัปดาห์', hanzi: '星期六', pinyin: 'xīngqīliù', thaiPron: 'ซิงชีลิ่ว', meaning: 'วันเสาร์' },
+      { id: 'w7', category: 'calendar_days', categoryLabel: 'วันในสัปดาห์', hanzi: '星期日', pinyin: 'xīngqīrì', thaiPron: 'ซิงชีรื่อ', meaning: 'วันอาทิตย์' },
+      { id: 'w8', category: 'calendar_days', categoryLabel: 'วันในสัปดาห์', hanzi: '今天', pinyin: 'jīntiān', thaiPron: 'จินเทียน', meaning: 'วันนี้' },
+      { id: 'w9', category: 'calendar_days', categoryLabel: 'วันในสัปดาห์', hanzi: '明天', pinyin: 'míngtiān', thaiPron: 'หมิงเทียน', meaning: 'พรุ่งนี้' },
+      { id: 'w10', category: 'calendar_days', categoryLabel: 'วันในสัปดาห์', hanzi: '昨天', pinyin: 'zuótiān', thaiPron: 'จั๋วเทียน', meaning: 'เมื่อวานนี้' },
 
-      // สื่อสารชีวิตประจำวัน
-      { id: 'd1', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '你好', pinyin: 'nǐ hǎo', thaiPron: 'หนีห่าว', meaning: 'สวัสดี' },
-      { id: 'd2', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '谢谢', pinyin: 'xièxie', thaiPron: 'เซี่ยเซี่ย', meaning: 'ขอบคุณ' },
-      { id: 'd3', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '对不起', pinyin: 'duìbuqǐ', thaiPron: 'ตุ้ยปู้ฉี่', meaning: 'ขอโทษ' },
-      { id: 'd4', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '多少钱', pinyin: 'duōshao qián', thaiPron: 'ตัวส่าวเฉียน', meaning: 'ราคาเท่าไหร่' },
-      { id: 'd5', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '我要这个', pinyin: 'wǒ yào zhège', thaiPron: 'หว่อ เย่า เจ้อเกอะ', meaning: 'ฉันเอาอันนี้' },
-      { id: 'd6', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '洗手间在哪里', pinyin: 'xǐshǒujiān zài nǎlǐ', thaiPron: 'สีโส่วเจียน ไจ้ หนาหลี่', meaning: 'ห้องน้ำอยู่ที่ไหน' }
+      // เดือนทั้ง 12
+      { id: 'm1', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '一月', pinyin: 'yīyuè', thaiPron: 'อีเยวี่ย', meaning: 'มกราคม' },
+      { id: 'm2', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '二月', pinyin: 'èryuè', thaiPron: 'เอ้อร์เยวี่ย', meaning: 'กุมภาพันธ์' },
+      { id: 'm3', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '三月', pinyin: 'sānyuè', thaiPron: 'ซานเยวี่ย', meaning: 'มีนาคม' },
+      { id: 'm4', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '四月', pinyin: 'sìyuè', thaiPron: 'ซื่อเยวี่ย', meaning: 'เมษายน' },
+      { id: 'm5', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '五月', pinyin: 'wǔyuè', thaiPron: 'อู่เยวี่ย', meaning: 'พฤษภาคม' },
+      { id: 'm6', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '六月', pinyin: 'liùyuè', thaiPron: 'ลิ่วเยวี่ย', meaning: 'มิถุนายน' },
+      { id: 'm7', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '七月', pinyin: 'qīyuè', thaiPron: 'ชีเยวี่ย', meaning: 'กรกฎาคม' },
+      { id: 'm8', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '八月', pinyin: 'bāyuè', thaiPron: 'ปาเยวี่ย', meaning: 'สิงหาคม' },
+      { id: 'm9', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '九月', pinyin: 'jiǔyuè', thaiPron: 'จิ่วเยวี่ย', meaning: 'กันยายน' },
+      { id: 'm10', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '十月', pinyin: 'shíyuè', thaiPron: 'สือเยวี่ย', meaning: 'ตุลาคม' },
+      { id: 'm11', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '十一月', pinyin: 'shíyīyuè', thaiPron: 'สืออีเยวี่ย', meaning: 'พฤศจิกายน' },
+      { id: 'm12', category: 'calendar_months', categoryLabel: 'เดือน', hanzi: '十二月', pinyin: 'shí\'èryuè', thaiPron: 'สือเอ้อร์เยวี่ย', meaning: 'ธันวาคม' },
+
+      // อาหารพื้นฐาน (สั่งอาหาร)
+      { id: 'f1', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '炒饭', pinyin: 'chǎofàn', thaiPron: 'เฉ่าฟั่น', meaning: 'ข้าวผัด' },
+      { id: 'f2', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '面条', pinyin: 'miàntiáo', thaiPron: 'เมี่ยนเถียว', meaning: 'บะหมี่' },
+      { id: 'f3', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '饺子', pinyin: 'jiǎozi', thaiPron: 'เจี่ยวจื่อ', meaning: 'เกี๊ยว / เกี๊ยวซ่า' },
+      { id: 'f4', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '麻辣', pinyin: 'málà', thaiPron: 'หม่าล่า', meaning: 'หม่าล่า' },
+      { id: 'f5', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '火锅', pinyin: 'huǒguō', thaiPron: 'หั่วกัว', meaning: 'ชาบู / หม้อไฟ' },
+      { id: 'f6', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '小笼包', pinyin: 'xiǎolóngbāo', thaiPron: 'เสี่ยวหลงเปา', meaning: 'เสี่ยวหลงเปา' },
+      { id: 'f7', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '包子', pinyin: 'bāozi', thaiPron: 'เปาจื่อ', meaning: 'ซาลาเปา' },
+      { id: 'f8', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '水', pinyin: 'shuǐ', thaiPron: 'สุ่ย', meaning: 'น้ำเปล่า' },
+      { id: 'f9', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '绿茶', pinyin: 'lǜchá', thaiPron: 'ลวี่ฉา', meaning: 'ชาเขียว' },
+      { id: 'f10', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '买单', pinyin: 'mǎidān', thaiPron: 'หม่ายตาน', meaning: 'เช็คบิล / เก็บเงิน' },
+      { id: 'f11', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '我要这个', pinyin: 'wǒ yào zhège', thaiPron: 'หว่อ เย่า เจ้อเกอะ', meaning: 'ฉันเอาอันนี้' },
+      { id: 'f12', category: 'food', categoryLabel: 'สั่งอาหาร', hanzi: '多少钱', pinyin: 'duōshao qián', thaiPron: 'ตัวส่าวเฉียน', meaning: 'ราคาเท่าไหร่' }
     ];
 
     const state = {
@@ -720,7 +782,7 @@
         window.speechSynthesis.cancel();
         const utter = new SpeechSynthesisUtterance(text);
         utter.lang = 'zh-CN';
-        utter.rate = 0.85;
+        utter.rate = 0.8; // slightly slower for better learning
 
         const voices = window.speechSynthesis.getVoices();
         const zhVoice = voices.find(v => v.lang && (v.lang.includes('zh-CN') || v.lang.includes('zh_CN') || v.lang.startsWith('zh')));
@@ -779,6 +841,11 @@
 
       const items = getFilteredVocab();
 
+      if (items.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--muted);">ไม่มีคำศัพท์ในหมวดหมู่นี้</div>';
+        return;
+      }
+
       items.forEach(item => {
         const card = document.createElement('div');
         card.className = 'vocab-card';
@@ -827,14 +894,25 @@
     // Generate Game Question
     function generateQuestion() {
       const pool = getFilteredVocab();
-      if (pool.length === 0) return;
+      if (pool.length === 0) {
+        // fallback to all if the filtered category is empty
+        const fallbackPool = VOCAB_DATA;
+        setupQuestionFromPool(fallbackPool);
+        return;
+      }
+      setupQuestionFromPool(pool);
+    }
 
+    function setupQuestionFromPool(pool) {
       const target = pool[Math.floor(Math.random() * pool.length)];
-      const others = VOCAB_DATA.filter(v => v.id !== target.id && v.category === target.category);
-      const fallbackOthers = VOCAB_DATA.filter(v => v.id !== target.id);
+      
+      // Get distractors from the same category first, fallback to any other vocabulary
+      let others = VOCAB_DATA.filter(v => v.id !== target.id && v.category === target.category);
+      if (others.length < 3) {
+        others = VOCAB_DATA.filter(v => v.id !== target.id);
+      }
 
-      const distractorSource = others.length >= 3 ? others : fallbackOthers;
-      const distractors = shuffle(distractorSource).slice(0, 3);
+      const distractors = shuffle(others).slice(0, 3);
       const choices = shuffle([target, ...distractors]);
 
       state.currentQuestion = target;
@@ -898,7 +976,7 @@
 
       if (!state.answered) {
         feedbackBar.className = 'feedback-bar';
-        feedbackText.textContent = 'กดเลือกคำตอบที่ตรงกับเสียงที่ได้ยิน';
+        feedbackText.textContent = 'กดเลือกคำตอบที่ตรงกับเสียงหรืออักษรที่เห็น';
         nextBtn.classList.add('hidden');
       }
     }
@@ -944,7 +1022,7 @@
         feedbackText.textContent = `ถูกต้อง! ${q.hanzi} (${q.pinyin} / ${q.thaiPron}) แปลว่า "${q.meaning}"`;
       } else {
         feedbackBar.className = 'feedback-bar wrong';
-        feedbackText.textContent = `ยังไม่ถูก! คำตอบที่ถูกคือ ${q.hanzi} (${q.pinyin} / ${q.thaiPron}) = "${q.meaning}"`;
+        feedbackText.textContent = `ยังไม่ถูก! คำตอบที่ถูกต้องคือ ${q.hanzi} (${q.pinyin} / ${q.thaiPron}) = "${q.meaning}"`;
       }
 
       nextBtn.classList.remove('hidden');
