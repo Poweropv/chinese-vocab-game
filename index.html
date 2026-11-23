@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ฝึกภาษาจีนพื้นฐาน — คำศัพท์และเกมฟังเสียง</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --surface-subtle: #f1efe9;
+      --border: #e5e2da;
+      --ink: #1e2024;
+      --muted: #646872;
+      --brand: #c93b2b;
+      --brand-hover: #b02e20;
+      --brand-soft: #fdf2f0;
+      --brand-ink: #ffffff;
+      --accent: #0f766e;
+      --accent-soft: #f0fdfa;
+      --success: #15803d;
+      --success-bg: #f0fdf4;
+      --success-border: #86efac;
+      --danger: #b91c1c;
+      --danger-bg: #fef2f2;
+      --danger-border: #fca5a5;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --shadow: 0 2px 6px rgba(24, 24, 27, 0.05), 0 1px 2px rgba(24, 24, 27, 0.04);
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Thai", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header Shell */
+    .app-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: var(--space-4) var(--space-6);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      background: var(--brand);
+      color: var(--brand-ink);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .brand-subtitle {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Mode Switcher */
+    .mode-tabs {
+      display: inline-flex;
+      background: var(--surface-subtle);
+      padding: 4px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+    }
+
+    .mode-tab {
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .mode-tab:hover {
+      color: var(--ink);
+    }
+
+    .mode-tab.active {
+      background: var(--surface);
+      color: var(--brand);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .mode-tab:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    }
+
+    /* Category Pills */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .cat-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .cat-btn {
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .cat-btn:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+
+    .cat-btn.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: var(--brand-ink);
+    }
+
+    .cat-btn:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+
+    .toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: 14px;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-label input {
+      accent-color: var(--brand);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    /* Vocab Grid */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .vocab-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--space-6);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .vocab-card:hover {
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+      box-shadow: 0 6px 14px rgba(24, 24, 27, 0.08);
+    }
+
+    .vocab-card:active {
+      transform: translateY(0);
+    }
+
+    .vocab-card.speaking {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--surface-subtle);
+      color: var(--muted);
+    }
+
+    .speak-icon {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--surface-subtle);
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .vocab-card:hover .speak-icon,
+    .vocab-card.speaking .speak-icon {
+      background: var(--brand);
+      color: var(--brand-ink);
+    }
+
+    .color-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 0, 0, 0.12);
+      margin-bottom: var(--space-2);
+    }
+
+    .hanzi {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: var(--space-2) 0 var(--space-1);
+      color: var(--ink);
+    }
+
+    .pinyin {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--brand);
+      margin-bottom: 2px;
+    }
+
+    .thai-pron {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: var(--space-3);
+    }
+
+    .hide-pinyin .pinyin,
+    .hide-pinyin .thai-pron {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .meaning {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+      padding-top: var(--space-2);
+      border-top: 1px dashed var(--border);
+      width: 100%;
+    }
+
+    /* Game View */
+    .hidden {
+      display: none !important;
+    }
+
+    .game-shell {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: var(--space-8);
+    }
+
+    .game-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: var(--space-6);
+    }
+
+    .game-type-switch {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .submode-btn {
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .submode-btn.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .score-pill {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      background: var(--surface-subtle);
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    .prompt-stage {
+      text-align: center;
+      padding: var(--space-6) var(--space-4);
+      background: var(--surface-subtle);
+      border-radius: var(--radius);
+      margin-bottom: var(--space-6);
+    }
+
+    .prompt-instruction {
+      margin: 0 0 var(--space-4);
+      font-size: 15px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .listen-trigger {
+      font: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: 16px 28px;
+      border-radius: 999px;
+      border: none;
+      background: var(--brand);
+      color: var(--brand-ink);
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(201, 59, 43, 0.25);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .listen-trigger:hover {
+      background: var(--brand-hover);
+      transform: translateY(-1px);
+    }
+
+    .listen-trigger:active {
+      transform: translateY(0);
+    }
+
+    .prompt-hanzi-box {
+      margin-top: var(--space-4);
+    }
+
+    .prompt-hanzi {
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .prompt-pinyin {
+      font-size: 18px;
+      color: var(--brand);
+      font-weight: 600;
+      margin-top: var(--space-1);
+    }
+
+    .choices-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .choice-btn {
+      font: inherit;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-4);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 108px;
+      transition: all 0.15s ease;
+    }
+
+    .choice-btn:hover:not(:disabled) {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+    }
+
+    .choice-btn:disabled {
+      cursor: default;
+    }
+
+    .choice-btn.correct {
+      border-color: var(--success);
+      background: var(--success-bg);
+      color: var(--success);
+    }
+
+    .choice-btn.wrong {
+      border-color: var(--danger);
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .choice-main {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .choice-sub {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .feedback-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      border-radius: var(--radius-sm);
+      background: var(--surface-subtle);
+      min-height: 68px;
+    }
+
+    .feedback-bar.correct {
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success);
+    }
+
+    .feedback-bar.wrong {
+      background: var(--danger-bg);
+      border: 1px solid var(--danger-border);
+      color: var(--danger);
+    }
+
+    .feedback-text {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .btn-next {
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background: var(--ink);
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    .btn-next:hover {
+      opacity: 0.92;
+    }
+
+    .speech-note {
+      margin-top: var(--space-4);
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: var(--space-4);
+      }
+      .game-shell {
+        padding: var(--space-4);
+      }
+      .choices-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <div class="brand-mark" aria-hidden="true">中文</div>
+        <div>
+          <h1 class="brand-title">ฝึกภาษาจีนพื้นฐานในชีวิตประจำวัน</h1>
+          <p class="brand-subtitle">ท่องจำคำศัพท์และเกมฟังเสียงเลือกคำตอบ</p>
+        </div>
+      </div>
+
+      <div class="mode-tabs" role="tablist" aria-label="โหมดการใช้งาน">
+        <button type="button" class="mode-tab active" id="tab-study" role="tab" aria-selected="true">
+          1. ท่องจำคำศัพท์
+        </button>
+        <button type="button" class="mode-tab" id="tab-game" role="tab" aria-selected="false">
+          2. เกมทายคำศัพท์
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Category & Pinyin Controls -->
+    <div class="toolbar">
+      <div class="cat-list" id="category-list" role="group" aria-label="หมวดหมู่คำศัพท์"></div>
+
+      <label class="toggle-label" id="pinyin-toggle-wrap">
+        <input type="checkbox" id="toggle-pinyin" checked>
+        <span>แสดงพินอินและคำอ่านไทย</span>
+      </label>
+    </div>
+
+    <!-- VIEW 1: Vocabulary Study -->
+    <section id="view-study" aria-label="รายการคำศัพท์">
+      <div class="vocab-grid" id="vocab-grid"></div>
+    </section>
+
+    <!-- VIEW 2: Interactive Game -->
+    <section id="view-game" class="hidden" aria-label="เกมฝึกคำศัพท์">
+      <div class="game-shell">
+        <div class="game-header">
+          <div class="game-type-switch" role="group" aria-label="รูปแบบโจทย์">
+            <button type="button" class="submode-btn active" id="submode-listen">
+              โหมดฟังเสียงพูดแล้วเลือกคำตอบ
+            </button>
+            <button type="button" class="submode-btn" id="submode-read">
+              โหมดดูตัวอักษรจีนแล้วเลือกคำตอบ
+            </button>
+          </div>
+          <div class="score-pill" id="score-display">คะแนน: 0 / 0</div>
+        </div>
+
+        <div class="prompt-stage">
+          <p class="prompt-instruction" id="game-instruction">
+            กดปุ่มเพื่อฟังเสียงพูดภาษาจีน แล้วเลือกคำตอบที่ถูกต้อง
+          </p>
+          <button type="button" class="listen-trigger" id="btn-play-prompt">
+            <span aria-hidden="true">🔊</span>
+            <span>ฟังเสียงโจทย์</span>
+          </button>
+
+          <div class="prompt-hanzi-box" id="prompt-visual">
+            <div class="prompt-hanzi" id="prompt-hanzi">?</div>
+            <div class="prompt-pinyin" id="prompt-pinyin"></div>
+          </div>
+        </div>
+
+        <div class="choices-grid" id="choices-grid"></div>
+
+        <div class="feedback-bar" id="feedback-bar">
+          <span class="feedback-text" id="feedback-text">เลือกคำตอบด้านบนเพื่อตรวจคำตอบ</span>
+          <button type="button" class="btn-next hidden" id="btn-next-question">ข้อถัดไป →</button>
+        </div>
+
+        <p class="speech-note" id="speech-status">
+          คลิกที่การ์ดคำศัพท์หรือปุ่มลำโพงเพื่อฟังเสียงอ่านภาษาจีนกลาง (zh-CN)
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const CATEGORIES = [
+      { id: 'all', name: 'ทั้งหมด' },
+      { id: 'numbers', name: 'การนับเลข (1–10)' },
+      { id: 'colors', name: 'สี (Colors)' },
+      { id: 'calendar', name: 'วัน เดือน ปี' },
+      { id: 'daily', name: 'สื่อสารชีวิตประจำวัน' }
+    ];
+
+    const VOCAB_DATA = [
+      // การนับเลข 1-10
+      { id: 'n1', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '一', pinyin: 'yī', thaiPron: 'อี', meaning: '1 (หนึ่ง)', badge: '1' },
+      { id: 'n2', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '二', pinyin: 'èr', thaiPron: 'เอ้อร์', meaning: '2 (สอง)', badge: '2' },
+      { id: 'n3', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '三', pinyin: 'sān', thaiPron: 'ซาน', meaning: '3 (สาม)', badge: '3' },
+      { id: 'n4', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '四', pinyin: 'sì', thaiPron: 'ซื่อ', meaning: '4 (สี่)', badge: '4' },
+      { id: 'n5', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '五', pinyin: 'wǔ', thaiPron: 'อู่', meaning: '5 (ห้า)', badge: '5' },
+      { id: 'n6', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '六', pinyin: 'liù', thaiPron: 'ลิ่ว', meaning: '6 (หก)', badge: '6' },
+      { id: 'n7', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '七', pinyin: 'qī', thaiPron: 'ชี', meaning: '7 (เจ็ด)', badge: '7' },
+      { id: 'n8', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '八', pinyin: 'bā', thaiPron: 'ปา', meaning: '8 (แปด)', badge: '8' },
+      { id: 'n9', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '九', pinyin: 'jiǔ', thaiPron: 'จิ่ว', meaning: '9 (เก้า)', badge: '9' },
+      { id: 'n10', category: 'numbers', categoryLabel: 'ตัวเลข', hanzi: '十', pinyin: 'shí', thaiPron: 'สือ', meaning: '10 (สิบ)', badge: '10' },
+
+      // สี
+      { id: 'c1', category: 'colors', categoryLabel: 'สี', hanzi: '红色', pinyin: 'hóngsè', thaiPron: 'หงเซ่อ', meaning: 'สีแดง', colorHex: '#dc2626' },
+      { id: 'c2', category: 'colors', categoryLabel: 'สี', hanzi: '黄色', pinyin: 'huángsè', thaiPron: 'หวงเซ่อ', meaning: 'สีเหลือง', colorHex: '#eab308' },
+      { id: 'c3', category: 'colors', categoryLabel: 'สี', hanzi: '蓝色', pinyin: 'lánsè', thaiPron: 'หลานเซ่อ', meaning: 'สีน้ำเงิน / สีฟ้า', colorHex: '#2563eb' },
+      { id: 'c4', category: 'colors', categoryLabel: 'สี', hanzi: '绿色', pinyin: 'lǜsè', thaiPron: 'ลวี่เซ่อ', meaning: 'สีเขียว', colorHex: '#16a34a' },
+      { id: 'c5', category: 'colors', categoryLabel: 'สี', hanzi: '白色', pinyin: 'báisè', thaiPron: 'ไป๋เซ่อ', meaning: 'สีขาว', colorHex: '#ffffff' },
+      { id: 'c6', category: 'colors', categoryLabel: 'สี', hanzi: '黑色', pinyin: 'hēisè', thaiPron: 'เฮยเซ่อ', meaning: 'สีดำ', colorHex: '#18181b' },
+
+      // วัน เดือน ปี
+      { id: 't1', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '今天', pinyin: 'jīntiān', thaiPron: 'จินเทียน', meaning: 'วันนี้' },
+      { id: 't2', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '明天', pinyin: 'míngtiān', thaiPron: 'หมิงเทียน', meaning: 'พรุ่งนี้' },
+      { id: 't3', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '昨天', pinyin: 'zuótiān', thaiPron: 'จั๋วเทียน', meaning: 'เมื่อวานนี้' },
+      { id: 't4', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '星期一', pinyin: 'xīngqīyī', thaiPron: 'ซิงชีอี', meaning: 'วันจันทร์' },
+      { id: 't5', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '星期日', pinyin: 'xīngqīrì', thaiPron: 'ซิงชีรื่อ', meaning: 'วันอาทิตย์' },
+      { id: 't6', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '月', pinyin: 'yuè', thaiPron: 'เยวี่ย', meaning: 'เดือน' },
+      { id: 't7', category: 'calendar', categoryLabel: 'วัน เดือน ปี', hanzi: '年', pinyin: 'nián', thaiPron: 'เหนียน', meaning: 'ปี' },
+
+      // สื่อสารชีวิตประจำวัน
+      { id: 'd1', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '你好', pinyin: 'nǐ hǎo', thaiPron: 'หนีห่าว', meaning: 'สวัสดี' },
+      { id: 'd2', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '谢谢', pinyin: 'xièxie', thaiPron: 'เซี่ยเซี่ย', meaning: 'ขอบคุณ' },
+      { id: 'd3', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '对不起', pinyin: 'duìbuqǐ', thaiPron: 'ตุ้ยปู้ฉี่', meaning: 'ขอโทษ' },
+      { id: 'd4', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '多少钱', pinyin: 'duōshao qián', thaiPron: 'ตัวส่าวเฉียน', meaning: 'ราคาเท่าไหร่' },
+      { id: 'd5', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '我要这个', pinyin: 'wǒ yào zhège', thaiPron: 'หว่อ เย่า เจ้อเกอะ', meaning: 'ฉันเอาอันนี้' },
+      { id: 'd6', category: 'daily', categoryLabel: 'ชีวิตประจำวัน', hanzi: '洗手间在哪里', pinyin: 'xǐshǒujiān zài nǎlǐ', thaiPron: 'สีโส่วเจียน ไจ้ หนาหลี่', meaning: 'ห้องน้ำอยู่ที่ไหน' }
+    ];
+
+    const state = {
+      mode: 'study', // 'study' | 'game'
+      category: 'numbers',
+      showPinyin: true,
+      gameSubmode: 'listen', // 'listen' | 'read'
+      score: 0,
+      totalAnswered: 0,
+      currentQuestion: null,
+      choices: [],
+      answered: false
+    };
+
+    // Web Speech API Helper
+    function speakChinese(text, cardEl) {
+      if (!('speechSynthesis' in window)) {
+        const statusEl = document.getElementById('speech-status');
+        if (statusEl) {
+          statusEl.textContent = 'เบราว์เซอร์นี้ไม่รองรับการสังเคราะห์เสียงพูดอัตโนมัติ';
+        }
+        return;
+      }
+
+      try {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'zh-CN';
+        utter.rate = 0.85;
+
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang && (v.lang.includes('zh-CN') || v.lang.includes('zh_CN') || v.lang.startsWith('zh')));
+        if (zhVoice) {
+          utter.voice = zhVoice;
+        }
+
+        if (cardEl) {
+          document.querySelectorAll('.vocab-card.speaking').forEach(el => el.classList.remove('speaking'));
+          cardEl.classList.add('speaking');
+          utter.onend = () => cardEl.classList.remove('speaking');
+          utter.onerror = () => cardEl.classList.remove('speaking');
+        }
+
+        window.speechSynthesis.speak(utter);
+      } catch (e) {
+        // Fallback silently in restricted iframe
+      }
+    }
+
+    function getFilteredVocab() {
+      if (state.category === 'all') {
+        return VOCAB_DATA;
+      }
+      return VOCAB_DATA.filter(item => item.category === state.category);
+    }
+
+    // Render Category Buttons
+    function renderCategories() {
+      const container = document.getElementById('category-list');
+      container.innerHTML = '';
+
+      CATEGORIES.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cat-btn' + (state.category === cat.id ? ' active' : '');
+        btn.textContent = cat.name;
+        btn.addEventListener('click', () => {
+          state.category = cat.id;
+          renderCategories();
+          if (state.mode === 'study') {
+            renderStudyGrid();
+          } else {
+            generateQuestion();
+          }
+        });
+        container.appendChild(btn);
+      });
+    }
+
+    // Render Study Grid
+    function renderStudyGrid() {
+      const grid = document.getElementById('vocab-grid');
+      grid.className = 'vocab-grid' + (state.showPinyin ? '' : ' hide-pinyin');
+      grid.innerHTML = '';
+
+      const items = getFilteredVocab();
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'vocab-card';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `${item.hanzi} ${item.pinyin} แปลว่า ${item.meaning} กดเพื่อฟังเสียง`);
+
+        const badgeHTML = `<span class="card-badge">${item.categoryLabel}</span>`;
+        const speakHTML = `<span class="speak-icon" aria-hidden="true">🔊</span>`;
+        const swatchHTML = item.colorHex
+          ? `<span class="color-swatch" style="background:${item.colorHex};" aria-hidden="true"></span>`
+          : '';
+
+        card.innerHTML = `
+          ${badgeHTML}
+          ${speakHTML}
+          ${swatchHTML}
+          <div class="hanzi">${item.hanzi}</div>
+          <div class="pinyin">${item.pinyin}</div>
+          <div class="thai-pron">คำอ่าน: ${item.thaiPron}</div>
+          <div class="meaning">${item.meaning}</div>
+        `;
+
+        card.addEventListener('click', () => speakChinese(item.hanzi, card));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            speakChinese(item.hanzi, card);
+          }
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    // Shuffle Array Helper
+    function shuffle(array) {
+      const arr = array.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Generate Game Question
+    function generateQuestion() {
+      const pool = getFilteredVocab();
+      if (pool.length === 0) return;
+
+      const target = pool[Math.floor(Math.random() * pool.length)];
+      const others = VOCAB_DATA.filter(v => v.id !== target.id && v.category === target.category);
+      const fallbackOthers = VOCAB_DATA.filter(v => v.id !== target.id);
+
+      const distractorSource = others.length >= 3 ? others : fallbackOthers;
+      const distractors = shuffle(distractorSource).slice(0, 3);
+      const choices = shuffle([target, ...distractors]);
+
+      state.currentQuestion = target;
+      state.choices = choices;
+      state.answered = false;
+
+      renderGameStage();
+      speakChinese(target.hanzi);
+    }
+
+    function renderGameStage() {
+      const q = state.currentQuestion;
+      if (!q) return;
+
+      const scoreEl = document.getElementById('score-display');
+      scoreEl.textContent = `คะแนน: ${state.score} / ${state.totalAnswered}`;
+
+      const hanziEl = document.getElementById('prompt-hanzi');
+      const pinyinEl = document.getElementById('prompt-pinyin');
+      const instructionEl = document.getElementById('game-instruction');
+
+      if (state.gameSubmode === 'listen') {
+        instructionEl.textContent = 'ฟังเสียงพูดภาษาจีน แล้วกดเลือกความหมายที่ถูกต้อง';
+        hanziEl.textContent = state.answered ? q.hanzi : '🎧 ?';
+        pinyinEl.textContent = (state.answered || state.showPinyin) ? `${q.pinyin} (${q.thaiPron})` : '';
+      } else {
+        instructionEl.textContent = 'อ่านตัวอักษรจีนด้านล่าง แล้วกดเลือกความหมายที่ถูกต้อง';
+        hanziEl.textContent = q.hanzi;
+        pinyinEl.textContent = state.showPinyin ? `${q.pinyin} (${q.thaiPron})` : '';
+      }
+
+      const choicesGrid = document.getElementById('choices-grid');
+      choicesGrid.innerHTML = '';
+
+      state.choices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'choice-btn';
+        btn.disabled = state.answered;
+
+        const swatch = choice.colorHex
+          ? `<span class="color-swatch" style="background:${choice.colorHex}; width:20px; height:20px; margin:0;" aria-hidden="true"></span>`
+          : '';
+
+        const subLabel = state.answered
+          ? `${choice.hanzi} • ${choice.pinyin}`
+          : choice.categoryLabel;
+
+        btn.innerHTML = `
+          <div class="choice-main">${swatch}<span>${choice.meaning}</span></div>
+          <div class="choice-sub">${subLabel}</div>
+        `;
+
+        btn.addEventListener('click', () => handleSelectAnswer(choice, btn));
+        choicesGrid.appendChild(btn);
+      });
+
+      const feedbackBar = document.getElementById('feedback-bar');
+      const feedbackText = document.getElementById('feedback-text');
+      const nextBtn = document.getElementById('btn-next-question');
+
+      if (!state.answered) {
+        feedbackBar.className = 'feedback-bar';
+        feedbackText.textContent = 'กดเลือกคำตอบที่ตรงกับเสียงที่ได้ยิน';
+        nextBtn.classList.add('hidden');
+      }
+    }
+
+    function handleSelectAnswer(selected, clickedBtn) {
+      if (state.answered) return;
+      state.answered = true;
+      state.totalAnswered += 1;
+
+      const q = state.currentQuestion;
+      const isCorrect = selected.id === q.id;
+      if (isCorrect) {
+        state.score += 1;
+      }
+
+      // Reveal prompt Hanzi & Pinyin
+      document.getElementById('prompt-hanzi').textContent = q.hanzi;
+      document.getElementById('prompt-pinyin').textContent = `${q.pinyin} (${q.thaiPron})`;
+      document.getElementById('score-display').textContent = `คะแนน: ${state.score} / ${state.totalAnswered}`;
+
+      // Highlight buttons
+      const allButtons = document.querySelectorAll('#choices-grid .choice-btn');
+      state.choices.forEach((choice, idx) => {
+        const btn = allButtons[idx];
+        btn.disabled = true;
+        const subEl = btn.querySelector('.choice-sub');
+        if (subEl) {
+          subEl.textContent = `${choice.hanzi} • ${choice.pinyin} (${choice.thaiPron})`;
+        }
+        if (choice.id === q.id) {
+          btn.classList.add('correct');
+        } else if (choice.id === selected.id && !isCorrect) {
+          btn.classList.add('wrong');
+        }
+      });
+
+      const feedbackBar = document.getElementById('feedback-bar');
+      const feedbackText = document.getElementById('feedback-text');
+      const nextBtn = document.getElementById('btn-next-question');
+
+      if (isCorrect) {
+        feedbackBar.className = 'feedback-bar correct';
+        feedbackText.textContent = `ถูกต้อง! ${q.hanzi} (${q.pinyin} / ${q.thaiPron}) แปลว่า "${q.meaning}"`;
+      } else {
+        feedbackBar.className = 'feedback-bar wrong';
+        feedbackText.textContent = `ยังไม่ถูก! คำตอบที่ถูกคือ ${q.hanzi} (${q.pinyin} / ${q.thaiPron}) = "${q.meaning}"`;
+      }
+
+      nextBtn.classList.remove('hidden');
+      speakChinese(q.hanzi);
+    }
+
+    // Event Listeners
+    document.getElementById('tab-study').addEventListener('click', () => {
+      state.mode = 'study';
+      document.getElementById('tab-study').classList.add('active');
+      document.getElementById('tab-study').setAttribute('aria-selected', 'true');
+      document.getElementById('tab-game').classList.remove('active');
+      document.getElementById('tab-game').setAttribute('aria-selected', 'false');
+
+      document.getElementById('view-study').classList.remove('hidden');
+      document.getElementById('view-game').classList.add('hidden');
+      renderStudyGrid();
+    });
+
+    document.getElementById('tab-game').addEventListener('click', () => {
+      state.mode = 'game';
+      document.getElementById('tab-game').classList.add('active');
+      document.getElementById('tab-game').setAttribute('aria-selected', 'true');
+      document.getElementById('tab-study').classList.remove('active');
+      document.getElementById('tab-study').setAttribute('aria-selected', 'false');
+
+      document.getElementById('view-study').classList.add('hidden');
+      document.getElementById('view-game').classList.remove('hidden');
+      generateQuestion();
+    });
+
+    document.getElementById('toggle-pinyin').addEventListener('change', (e) => {
+      state.showPinyin = e.target.checked;
+      if (state.mode === 'study') {
+        renderStudyGrid();
+      } else {
+        renderGameStage();
+      }
+    });
+
+    document.getElementById('submode-listen').addEventListener('click', () => {
+      state.gameSubmode = 'listen';
+      document.getElementById('submode-listen').classList.add('active');
+      document.getElementById('submode-read').classList.remove('active');
+      generateQuestion();
+    });
+
+    document.getElementById('submode-read').addEventListener('click', () => {
+      state.gameSubmode = 'read';
+      document.getElementById('submode-read').classList.add('active');
+      document.getElementById('submode-listen').classList.remove('active');
+      generateQuestion();
+    });
+
+    document.getElementById('btn-play-prompt').addEventListener('click', () => {
+      if (state.currentQuestion) {
+        speakChinese(state.currentQuestion.hanzi);
+      }
+    });
+
+    document.getElementById('btn-next-question').addEventListener('click', () => {
+      generateQuestion();
+    });
+
+    // Initialize
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.getVoices();
+    }
+    renderCategories();
+    renderStudyGrid();
+  </script>
+</body>
+</html>
